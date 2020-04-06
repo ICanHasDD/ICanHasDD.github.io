@@ -26,6 +26,7 @@ function load() {
 			data[index].unlock()
 		}
 		data[index].autoProduce = prod.autoProduce
+		data[index].autoProduce.draw()
 		data[index].draw()
 	})
 }
@@ -93,7 +94,8 @@ function setup(){																																		//Allow disabling Automation
 			})
 		}
 		
-		element.domautobutton.onclick = function() {element.autoProduce = !element.autoProduce; if(element.autoProduce) {element.domautobutton.innerHTML = "Produce"} else {element.domautobutton.innerHTML = "Pause"}}
+		element.domautobutton.onclick = function() {element.autoProduce = !element.autoProduce; element.domautobutton.draw()}
+		element.domautobutton.draw = function() {if(element.autoProduce) {element.domautobutton.innerHTML = "Produce"} else {element.domautobutton.innerHTML = "Pause"}}
 		element.domautobutton.innerHTML = "Produce"
 		
 		if(element.AutoProduction.length > 0){
