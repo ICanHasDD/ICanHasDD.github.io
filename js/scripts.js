@@ -94,7 +94,12 @@ function setup(){																																		//Allow disabling Automation
 		
 		element.domautobutton.onclick = function() {element.autoProduce = !element.autoProduce; if(element.autoProduce) {element.domautobutton.innerHTML = "Produce"} else {element.domautobutton.innerHTML = "Pause"}}
 		element.domautobutton.innerHTML = "Produce"
-		element.domautobutton.hidden = true
+		
+		if(element.AutoProduction.length > 0){
+			element.domautobutton.hidden = false
+		} else {
+			element.domautobutton.hidden = true
+		}
 		
 		element.dombutton.className = "tooltip"
 		element.dombutton.style.backgroundColor = '#00FF00'
