@@ -10,7 +10,7 @@ window.onbeforeunload = function(){
 function save(){
 	var idleSave = []
 	data.forEach((prod) => {
-		idleSave.push({"Name": prod.Name, "amount": prod.amount.value, "unlocked": prod.unlocked, "disabledSince": (prod.disabledSince%prod.Interval), "autoProduce": prod.autoProduce})
+		idleSave.push({"Name": prod.Name, "amount": prod.amount.value, "unlocked": prod.unlocked, "disabledSince": (prod.disabledSince%prod.Interval), "autoProduce": prod.autoProduce.value})
 	})
 	localStorage.setItem("data", JSON.stringify(idleSave))
 }
@@ -20,12 +20,12 @@ function load() {
 	idleSave.forEach((prod) => {
 		let obj = data.find(o => o.Name === prod.Name)
 		let index = data.indexOf(obj)
-		data[index].amount.value = prod.amount.value
+		data[index].amount.value = prod.amount
 		data[index].disabledSince = prod.disabledSince
 		if(prod.unlocked){
 			data[index].unlock()
 		}
-		data[index].autoProduce = prod.autoProduce
+		data[index].autoProduce.value = prod.autoProduce
 		data[index].autoProduce.draw()
 		data[index].draw()
 	})
@@ -80,7 +80,7 @@ function setup(){																																		//Allow disabling Automation
 			product.Cost.forEach((prod) => {
 				let obj = data.find(o => o.Name === prod.Name)
 				let index = data.indexOf(obj)
-				data[index].amount.value -= prod.amount.value
+				data[index].amount.value -= prod.amount
 				data[index].amount.draw()
 			})
 		}
@@ -97,20 +97,20 @@ function setup(){																																		//Allow disabling Automation
 						boost *= (Math.pow(aff.Boost, data[index].amount.value))
 					}
 				})
-				data[index].amount.value += (prod.amount.value * boost)
+				data[index].amount.value += (prod.amount * boost)
 				data[index].amount.draw()
 			})
 		}
 		
 		product.amount.draw = function() {
-			product.domvar.innerHTML = Math.round(product.amount * 1000) / 1000
+			product.amount.dom.innerHTML = Math.round(product.amount.value * 1000) / 1000
 		}
 		
 		product.autoProduce.draw = function() {
 			if(product.autoProduce) {
-				product.element.autoProduce.dom.innerHTML = "Produce"
+				product.autoProduce.dom.innerHTML = "Produce"
 			} else {
-				product.element.autoProduce.dom.innerHTML = "Pause"
+				product.autoProduce.dom.innerHTML = "Pause"
 			}
 		}
 		
@@ -152,7 +152,8 @@ function setup(){																																		//Allow disabling Automation
 		
 		product.amount.dom.innerHTML = product.amount.value
 		product.amount.delta.dom.innerHTML = '(' + (product.amount.value - product.amount.last.value) + ')'
-		product.amount.dom.style.visibility = 'hidden'
+		
+		product.dom.style.visibility = 'hidden'
 		
 		product.draw()
 		
@@ -204,15 +205,15 @@ function Game() {
 	}
 	
 	if(data[objectIteration].disabledSince + data[objectIteration].Interval > secondsSinceStart) {														//Change Color
-		data[objectIteration].dombutton.style.backgroundColor = (getHex(data[objectIteration].Interval, (secondsSinceStart - data[objectIteration].disabledSince)))
+		data[objectIteration].button.dom.style.backgroundColor = (getHex(data[objectIteration].Interval, (secondsSinceStart - data[objectIteration].disabledSince)))
 	}
 	
-	if((data[objectIteration].disabledSince == 0 || data[objectIteration].disabledSince + data[objectIteration].Interval <= secondsSinceStart) && data[objectIteration].dombutton.disabled) {			//Unlock buttons and update last color
+	if((data[objectIteration].disabledSince == 0 || data[objectIteration].disabledSince + data[objectIteration].Interval <= secondsSinceStart) && data[objectIteration].button.dom.disabled) {			//Unlock buttons and update last color
 		if(costCheck(data[objectIteration])){
-			data[objectIteration].dombutton.disabled = false
+			data[objectIteration].button.dom.disabled = false
 			data[objectIteration].disabledSince = 0
 		}
-		data[objectIteration].dombutton.style.backgroundColor = '#00FF00'
+		data[objectIteration].button.dom.style.backgroundColor = '#00FF00'
 	}
 	
 	if(data[objectIteration].autoProduce) {
@@ -256,7 +257,7 @@ function unlockCheck(product){																															//Unlock new Item
 	product.Unlock.forEach((prod) => {
 		let obj = data.find(o => o.Name === prod.Name)
 		let index = data.indexOf(obj)
-		if(data[index].amount.value < prod.amount.value) {
+		if(data[index].amount.value < prod.amount) {
 			unlockReqMet = false
 		}
 	})
@@ -268,7 +269,7 @@ function costCheck(product){
 		product.Cost.forEach((prod) => {
 		let obj = data.find(o => o.Name === prod.Name)
 		let index = data.indexOf(obj)
-		if(data[index].amount.value < prod.amount.value) {
+		if(data[index].amount.value < prod.amount) {
 			unlockReqMet = false
 		}
 	})
@@ -280,7 +281,7 @@ function upkeepCheck(product) {
 	product.Upkeep.forEach((prod) => {
 		let obj = data.find(o => o.Name === prod.Name)
 		let index = data.indexOf(obj)
-		if(data[index].amount.value < prod.amount.value * product.amount.value) {
+		if(data[index].amount.value < prod.amount * product.amount.value) {
 			canAfford = false
 		}
 	})
