@@ -111,10 +111,10 @@ function setup(){																																		//Allow disabling Automation
 				if(product.unlocked) {
 					tempString = "To craft me you need: "
 				} else {
-					tempString = "To unlock me you need: "
+					tempString = "To unlock " + product.Name + " you need: "
 				}
 				product.Cost.forEach((prod) => {
-					tempString += prod.amount + " pieces of " + prod.Name
+					tempString += prod.amount + " pieces of " + prod.Name + ", "
 				})
 			product.requirements.dom.innerHTML = tempString
 			}
