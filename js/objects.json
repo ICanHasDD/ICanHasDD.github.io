@@ -76,6 +76,28 @@ var data=[
 		"ToolTip":"Nothing Yet"
 	},
 	{
+		"Name":"Lumber Mill",
+		"Cost":[
+			{"Name":"Wood", "amount":50},
+			{"Name":"Stick", "amount":25},
+			{"Name":"Stone", "amount":40}
+		],
+		"Interval":50,
+		"Production":[
+			{"Name":"Lumber Mill","amount":1, "affectedBy":[]}
+		],
+		"AutoProduction":[
+			{"Name":"Wood","amount":1, "affectedBy":[], "interval":1}
+		],
+		"Upkeep":[],
+		"Unlock":[
+			{"Name":"Wood", "amount":50},
+			{"Name":"Stick", "amount":25},
+			{"Name":"Stone", "amount":40}
+		],
+		"ToolTip":"Nothing Yet"
+	},
+	{
 		"Name":"Saw Mill",
 		"Cost":[
 			{"Name":"Wood", "amount":50},
