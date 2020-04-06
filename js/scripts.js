@@ -148,10 +148,16 @@ function setup(){																																		//Allow disabling Automation
 				product.button.dom.style.visibility = 'hidden'
 				product.amount.dom.style.visibility = 'hidden'
 				product.amount.delta.dom.style.visibility = 'hidden'
+				product.autoProduce.dom.hidden = true
 			} else {
 				product.button.dom.style.visibility = 'visible'
 				product.amount.dom.style.visibility = 'visible'
 				product.amount.delta.dom.style.visibility = 'visible'
+				if(product.AutoProduction.length > 0){
+					product.autoProduce.dom.hidden = false
+				} else {
+					product.autoProduce.dom.hidden = true
+				}
 			}
 			product.requirements.draw()
 		}
@@ -159,12 +165,7 @@ function setup(){																																		//Allow disabling Automation
 		product.button.draw = function() {
 			product.dombutton.innerHTML = '<p>' + product.Name + '</p>'
 		}
-		
-		if(product.AutoProduction.length > 0){
-			product.autoProduce.dom.hidden = false
-		} else {
-			product.autoProduce.dom.hidden = true
-		}
+	
 		
 		product.button.dom.className = "tooltip"
 		product.button.dom.style.backgroundColor = '#00FF00'
