@@ -54,7 +54,7 @@ function setup(){
 		element.domvar = document.createElement('var')
 		element.domdeltavar = document.createElement('var')
 		
-		element.domdeltavar.draw = function() {if(element.amount - element.lastAmount >= 0) {element.domdeltavar.class = "positive"} else {element.domdeltavar.class = "negative"}; element.domdeltavar.innerHTML = '(' + Math.round((element.amount - element.lastAmount) * 1000) / 1000 + ')'}
+		element.domdeltavar.draw = function() {if(element.amount - element.lastAmount >= 0) {element.domdeltavar.className = "positive"} else {element.domdeltavar.className = "negative"}; element.domdeltavar.innerHTML = '(' + Math.round((element.amount - element.lastAmount) * 1000) / 1000 + ')'}
 		
 		element.clicked = function() {
 			data.forEach((prod) => {
