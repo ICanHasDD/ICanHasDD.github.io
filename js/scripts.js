@@ -48,7 +48,7 @@ function setup(){																																		//Allow disabling Automation
 		element.unlocked = false
 		element.amount = 0
 		element.draw = function() {element.domvar.innerHTML = Math.round(element.amount * 1000) / 1000}
-		element.unlock = function() {element.unlocked = true; element.domdiv.draw()}
+		element.unlock = function() {element.unlocked = true; element.domdiv.draw(); element.disabledSince = 0}
 		
 		element.domautobutton = document.createElement('button')
 		element.domdiv = document.createElement('div')
@@ -93,6 +93,7 @@ function setup(){																																		//Allow disabling Automation
 		}
 		
 		element.domautobutton.onclick = function() {element.autoProduce = !element.autoProduce; if(element.autoProduce) {element.domautobutton.innerHTML = "Produce"} else {element.domautobutton.innerHTML = "Pause"}}
+		element.domautobutton.innerHTML = "Produce"
 		element.domautobutton.hidden = true
 		
 		element.dombutton.className = "tooltip"
