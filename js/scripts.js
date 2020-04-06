@@ -44,104 +44,130 @@ function getHex(max, dec) {
 }
 
 function setup(){																																		//Allow disabling Automation
-	data.forEach((element) => {
-		element.autoProduce = true
-		element.lastAmount = 0
-		element.unlocked = false
-		element.amount = 0
-		element.draw = function() {element.domvar.innerHTML = Math.round(element.amount * 1000) / 1000}
-		element.unlock = function() {element.unlocked = true; element.domdiv.draw(); element.disabledSince = 0}
+	data.forEach((product) => {
+		product.autoProduce.value = true
+		product.unlocked = false
+		product.amount.value = 0
+		product.amount.last.value = 0
 		
-		element.domautobutton = document.createElement('button')
-		element.domdiv = document.createElement('div')
-		element.dombutton = document.createElement('button')
-		element.dombuttontip = document.createElement('span')
-		element.domvar = document.createElement('var')
-		element.domdeltavar = document.createElement('var')
-		
-		element.domdeltavar.draw = function() {if(element.amount - element.lastAmount >= 0) {element.domdeltavar.className = "positive"} else {element.domdeltavar.className = "negative"}; element.domdeltavar.innerHTML = '(' + Math.round((element.amount - element.lastAmount) * 1000) / 1000 + ')'}
-		
-		element.clicked = function() {
-			data.forEach((prod) => {
-				prod.dombutton.disabled = true
-			})
-			element.disabledSince = secondsSinceStart
-			element.pay()
-			element.produce()
+		product.unlock = function() {
+			product.unlocked = true
+			product.draw()
+			product.disabledSince = 0
 		}
-		element.pay = function() {
-			element.Cost.forEach((prod) => {
+		
+		product.dom = document.createElement('div')
+		
+		product.button.dom = document.createElement('button')
+		product.button.clicked = function() {
+			data.forEach((prod) => {
+				prod.button.dom.disabled = true
+			})
+			product.disabledSince = secondsSinceStart
+			product.pay()
+			product.produce()
+		}
+		product.button.tip.dom = document.createElement('span')
+		
+		product.autoProduce.dom = document.createElement('button')
+		product.autoProduce.dom.onclick = function() {product.autoProduce = !product.autoProduce; product.element.autoProduce.draw()}
+		product.autoProduce.innerHTML = "Produce"
+		
+		product.amount.dom = document.createElement('var')
+		product.amount.delta.dom = document.createElement('var')
+		
+		product.pay = function() {
+			product.Cost.forEach((prod) => {
 				let obj = data.find(o => o.Name === prod.Name)
 				let index = data.indexOf(obj)
-				data[index].amount -= prod.amount
-				data[index].draw()
+				data[index].amount.value -= prod.amount.value
+				data[index].amount.draw()
 			})
 		}
-		element.produce = function() {
-			element.Production.forEach((prod) => {
+		
+		product.produce = function() {
+			product.Production.forEach((prod) => {
 				var boost = 1
 				let obj = data.find(o => o.Name === prod.Name)
 				let index = data.indexOf(obj)
 				prod.affectedBy.forEach((aff) => {
 					let obj = data.find(o => o.Name === aff.Name)
 					let index = data.indexOf(obj)
-					if(data[index].amount > 0) {
-						boost *= (Math.pow(aff.Boost, data[index].amount))
+					if(data[index].amount.value > 0) {
+						boost *= (Math.pow(aff.Boost, data[index].amount.value))
 					}
 				})
-				data[index].amount += (prod.amount * boost)
-				data[index].draw()
+				data[index].amount.value += (prod.amount.value * boost)
+				data[index].amount.draw()
 			})
 		}
 		
-		element.domautobutton.onclick = function() {element.autoProduce = !element.autoProduce; element.domautobutton.draw()}
-		element.domautobutton.draw = function() {if(element.autoProduce) {element.domautobutton.innerHTML = "Produce"} else {element.domautobutton.innerHTML = "Pause"}}
-		element.domautobutton.innerHTML = "Produce"
-		
-		if(element.AutoProduction.length > 0){
-			element.domautobutton.hidden = false
-		} else {
-			element.domautobutton.hidden = true
+		product.amount.draw = function() {
+			product.domvar.innerHTML = Math.round(product.amount * 1000) / 1000
 		}
 		
-		element.dombutton.className = "tooltip"
-		element.dombutton.style.backgroundColor = '#00FF00'
-		element.dombutton.disabled = true;
-		element.dombutton.onclick = element.clicked
-		element.dombutton.innerHTML = '<p>' + element.Name + '</p>'
-		
-		element.dombuttontip.className = "tooltiptext"
-		element.dombuttontip.innerHTML = element.ToolTip
-		
-		element.dombutton.draw = function() {
-			element.dombutton.innerHTML = '<p>' + element.Name + '</p>'
-		}
-		
-		element.domvar.innerHTML = element.amount
-		element.domdeltavar.innerHTML = '(' + (element.amount - element.lastAmount) + ')'
-		element.domdiv.style.visibility = 'hidden'
-		
-		element.domdiv.draw = function() {
-			if(element.unlocked == false) {
-				element.domdiv.style.visibility = 'hidden'
+		product.autoProduce.draw = function() {
+			if(product.autoProduce) {
+				product.element.autoProduce.dom.innerHTML = "Produce"
 			} else {
-				element.domdiv.style.visibility = 'visible'
+				product.element.autoProduce.dom.innerHTML = "Pause"
 			}
 		}
-		element.domdiv.draw()
 		
-		element.dombutton.appendChild(element.dombuttontip)
-		element.domdiv.appendChild(element.dombutton)
-		element.domdiv.appendChild(element.domvar)
-		element.domdiv.appendChild(element.domdeltavar)
-		element.domdiv.appendChild(element.domautobutton)
-		document.body.appendChild(element.domdiv)
+		product.amount.delta.draw = function() {
+			if(product.amount.value - product.amount.last.value >= 0) {
+				product.amount.delta.dom.className = "positive"
+			} else {
+				product.amount.delta.dom.className = "negative"
+			}
+			product.amount.delta.dom.innerHTML = '(' + Math.round((product.amount.value - product.amount.last.value) * 1000) / 1000 + ')'
+		}
 		
-		element.AutoProduction.forEach((prod) => {
+		product.draw = function() {
+			if(product.unlocked == false) {
+				product.dom.style.visibility = 'hidden'
+			} else {
+				product.dom.style.visibility = 'visible'
+			}
+		}
+		
+		product.button.draw = function() {
+			product.dombutton.innerHTML = '<p>' + product.Name + '</p>'
+		}
+		
+		if(product.AutoProduction.length > 0){
+			product.AutoProduction.dom.hidden = false
+		} else {
+			product.AutoProduction.dom.hidden = true
+		}
+		
+		product.button.dom.className = "tooltip"
+		product.button.dom.style.backgroundColor = '#00FF00'
+		product.button.dom.disabled = true;
+		product.button.dom.onclick = product.button.clicked
+		product.button.dom.innerHTML = '<p>' + product.Name + '</p>'
+		
+		product.button.tip.dom.className = "tooltiptext"
+		product.button.tip.dom.innerHTML = product.ToolTip
+		
+		product.amount.dom.innerHTML = product.amount.value
+		product.amount.delta.dom.innerHTML = '(' + (product.amount.value - product.amount.last.value) + ')'
+		product.amount.dom.style.visibility = 'hidden'
+		
+		product.draw()
+		
+		product.button.dom.appendChild(product.dombuttontip)
+		product.dom.appendChild(product.button.dom)
+		product.dom.appendChild(product.amount.dom)
+		product.dom.appendChild(product.amount.delta.dom)
+		product.dom.appendChild(product.autoProduce.dom)
+		document.body.appendChild(product.dom)
+		
+		product.AutoProduction.forEach((prod) => {
 			prod.lastProduced = 0
 		})
 		
-		element.Upkeep.forEach((prod) => {
+		product.Upkeep.forEach((prod) => {
 			prod.lastPayed = 0
 		})
 	})
@@ -158,8 +184,8 @@ function Game() {
 		secondsSinceStart++
 		
 		data.forEach((prod) => {
-			prod.domdeltavar.draw()
-			prod.lastAmount = prod.amount
+			prod.amount.delta.draw()
+			prod.amount.last.value = prod.amount.value
 		})
 	}
 	
@@ -190,7 +216,7 @@ function Game() {
 	}
 	
 	if(data[objectIteration].autoProduce) {
-		if(data[objectIteration].amount > 0) {																											//Calc if can pay cost then AutoProduction
+		if(data[objectIteration].amount.value > 0) {																											//Calc if can pay cost then AutoProduction
 			var payed = false
 			if(data[objectIteration].Upkeep.length > 0) {
 				if (upkeepCheck(data[objectIteration])) {																															//Upkeep is always payed even if not everything is Produced
@@ -198,8 +224,8 @@ function Game() {
 						if(prod.lastPayed + prod.interval < secondsSinceStart) {
 							let obj = data.find(o => o.Name === prod.Name)
 							let index = data.indexOf(obj)
-							data[index].amount -= (prod.amount * data[objectIteration].amount)
-							data[index].draw()
+							data[index].amount.value -= (prod.amount.value * data[objectIteration].amount.value)
+							data[index].amount.draw()
 							payed = true
 							prod.lastPayed = secondsSinceStart
 						}
@@ -213,8 +239,8 @@ function Game() {
 					if(prod.lastProduced + prod.interval < secondsSinceStart) {
 						let obj = data.find(o => o.Name === prod.Name)
 						let index = data.indexOf(obj)
-						data[index].amount += (prod.amount * data[objectIteration].amount)
-						data[index].draw()
+						data[index].amount.value += (prod.amount.value * data[objectIteration].amount.value)
+						data[index].amount.draw()
 						prod.lastProduced = secondsSinceStart
 					}
 				})
@@ -230,7 +256,7 @@ function unlockCheck(product){																															//Unlock new Item
 	product.Unlock.forEach((prod) => {
 		let obj = data.find(o => o.Name === prod.Name)
 		let index = data.indexOf(obj)
-		if(data[index].amount < prod.amount) {
+		if(data[index].amount.value < prod.amount.value) {
 			unlockReqMet = false
 		}
 	})
@@ -242,7 +268,7 @@ function costCheck(product){
 		product.Cost.forEach((prod) => {
 		let obj = data.find(o => o.Name === prod.Name)
 		let index = data.indexOf(obj)
-		if(data[index].amount < prod.amount) {
+		if(data[index].amount.value < prod.amount.value) {
 			unlockReqMet = false
 		}
 	})
@@ -254,7 +280,7 @@ function upkeepCheck(product) {
 	product.Upkeep.forEach((prod) => {
 		let obj = data.find(o => o.Name === prod.Name)
 		let index = data.indexOf(obj)
-		if(data[index].amount < prod.amount * product.amount) {
+		if(data[index].amount.value < prod.amount.value * product.amount.value) {
 			canAfford = false
 		}
 	})
