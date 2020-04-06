@@ -67,9 +67,7 @@ var data=[
 		"Production":[
 			{"Name":"Stone Pickaxe","amount":1, "affectedBy":[]}
 		],
-		"AutoProduction":[
-			{"Name":"Stone Pickaxe","amount":0, "affectedBy":[], "interval":100}
-		],
+		"AutoProduction":[],
 		"Upkeep":[],
 		"Unlock":[
 			{"Name":"Stick","amount":10},
