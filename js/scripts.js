@@ -116,6 +116,7 @@ function setup(){																																		//Allow disabling Automation
 		}
 		element.domdiv.draw()
 		
+		element.dombutton.appendChild(element.dombuttonTip)
 		element.domdiv.appendChild(element.dombutton)
 		element.domdiv.appendChild(element.domvar)
 		element.domdiv.appendChild(element.domdeltavar)
