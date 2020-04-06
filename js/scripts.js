@@ -252,7 +252,7 @@ function Game() {
 			if(data[objectIteration].Upkeep.length > 0) {
 				if (upkeepCheck(data[objectIteration])) {																															//Upkeep is always payed even if not everything is Produced
 					data[objectIteration].Upkeep.forEach((prod) => {
-						if(prod.lastPayed + prod.interval < secondsSinceStart) {
+						if(prod.lastPayed + prod.interval <= secondsSinceStart) {
 							let obj = data.find(o => o.Name === prod.Name)
 							let index = data.indexOf(obj)
 							data[index].amount.value -= (prod.amount * data[objectIteration].amount.value)
