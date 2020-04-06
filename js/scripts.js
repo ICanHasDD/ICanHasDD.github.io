@@ -141,6 +141,11 @@ function Game() {
 			prod.lastAmount = prod.amount
 		})
 	}
+	
+	if(secondsSinceStart % 5 == 0) {																													//AutoSave Every 5 seconds
+		save()
+	}
+	
 	if(objectIteration >= data.length){
 		objectIteration = 0
 	}
