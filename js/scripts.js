@@ -154,7 +154,7 @@ function setup(){																																		//Allow disabling Automation
 			product.dombutton.innerHTML = '<p>' + product.Name + '</p>'
 		}
 		
-		if(product.autoProduce.length > 0){
+		if(product.AutoProduction.length > 0){
 			product.autoProduce.dom.hidden = false
 		} else {
 			product.autoProduce.dom.hidden = true
