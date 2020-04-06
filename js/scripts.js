@@ -192,17 +192,21 @@ function Game() {
 	if(data[objectIteration].autoProduce) {
 		if(data[objectIteration].amount > 0) {																											//Calc if can pay cost then AutoProduction
 			var payed = false
-			if (upkeepCheck(data[objectIteration])) {																															//Upkeep is always payed even if not everything is Produced
-				data[objectIteration].Upkeep.forEach((prod) => {
-					if(prod.lastPayed + prod.interval < secondsSinceStart) {
-						let obj = data.find(o => o.Name === prod.Name)
-						let index = data.indexOf(obj)
-						data[index].amount -= (prod.amount * data[objectIteration].amount)
-						data[index].draw()
-						payed = true
-						prod.lastPayed = secondsSinceStart
-					}
-				})
+			if(data[objectIteration].Upkeep.length > 0) {
+				if (upkeepCheck(data[objectIteration])) {																															//Upkeep is always payed even if not everything is Produced
+					data[objectIteration].Upkeep.forEach((prod) => {
+						if(prod.lastPayed + prod.interval < secondsSinceStart) {
+							let obj = data.find(o => o.Name === prod.Name)
+							let index = data.indexOf(obj)
+							data[index].amount -= (prod.amount * data[objectIteration].amount)
+							data[index].draw()
+							payed = true
+							prod.lastPayed = secondsSinceStart
+						}
+					})
+				}
+			} else {
+				payed = true
 			}
 			if(payed){
 				data[objectIteration].AutoProduction.forEach((prod) => {																				
