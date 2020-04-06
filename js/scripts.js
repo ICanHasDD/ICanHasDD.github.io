@@ -145,9 +145,13 @@ function setup(){																																		//Allow disabling Automation
 		
 		product.draw = function() {
 			if(product.unlocked == false) {
-				product.dom.style.visibility = 'hidden'
+				product.button.dom.style.visibility = 'hidden'
+				product.amount.dom.style.visibility = 'hidden'
+				product.amount.delta.dom.style.visibility = 'hidden'
 			} else {
-				product.dom.style.visibility = 'visible'
+				product.button.dom.style.visibility = 'visible'
+				product.amount.dom.style.visibility = 'visible'
+				product.amount.delta.dom.style.visibility = 'visible'
 			}
 			product.requirements.draw()
 		}
@@ -174,7 +178,9 @@ function setup(){																																		//Allow disabling Automation
 		product.amount.dom.innerHTML = product.amount.value
 		product.amount.delta.dom.innerHTML = '(' + (product.amount.value - product.amount.last.value) + ')'
 		
-		product.dom.style.visibility = 'hidden'
+		product.button.dom.style.visibility = 'hidden'
+		product.amount.dom.style.visibility = 'hidden'
+		product.amount.delta.dom.style.visibility = 'hidden'
 		
 		product.draw()
 		product.requirements.draw()
