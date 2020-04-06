@@ -40,6 +40,22 @@ var data=[
 		"ToolTip":"You'll need 10 of me and 20 Stones to unlock Stone tools"
 	},
 	{
+		"Name":"Coal",
+		"Cost":[
+			{"Name":"Wood", "amount":10}
+		],
+		"Interval":5,
+		"Production":[
+			{"Name":"Coal","amount":1, "affectedBy":[]}
+		],
+		"AutoProduction":[],
+		"Upkeep":[],
+		"Unlock":[
+			{"Name":"Wood","amount":10}
+		],
+		"ToolTip":"Nothing Yet"
+	},
+	{
 		"Name":"Stone Axe",
 		"Cost":[
 			{"Name":"Stick", "amount":10},
@@ -118,6 +134,50 @@ var data=[
 			{"Name":"Wood", "amount":50},
 			{"Name":"Stick", "amount":25},
 			{"Name":"Stone", "amount":40}
+		],
+		"ToolTip":"Nothing Yet"
+	},
+	{
+		"Name":"Furnace",
+		"Cost":[
+			{"Name":"Stone", "amount":50}
+		],
+		"Interval":50,
+		"Production":[
+			{"Name":"Furnace","amount":1, "affectedBy":[]}
+		],
+		"AutoProduction":[
+			{"Name":"Coal","amount":1, "affectedBy":[], "interval":1}
+		],
+		"Upkeep":[
+			{"Name":"Wood","amount":1, "affectedBy":[], "interval":8}
+		],
+		"Unlock":[
+			{"Name":"Stone", "amount":50}
+		],
+		"ToolTip":"Nothing Yet"
+	},
+	{
+		"Name":"Quarry",
+		"Cost":[
+			{"Name":"Wood", "amount":50},
+			{"Name":"Stick", "amount":25},
+			{"Name":"Stone", "amount":100}
+		],
+		"Interval":50,
+		"Production":[
+			{"Name":"Quarry","amount":1, "affectedBy":[]}
+		],
+		"AutoProduction":[
+			{"Name":"Stone","amount":1, "affectedBy":[], "interval":1}
+		],
+		"Upkeep":[
+			{"Name":"Coal","amount":1, "affectedBy":[], "interval":8}
+		],
+		"Unlock":[
+			{"Name":"Wood", "amount":50},
+			{"Name":"Stick", "amount":25},
+			{"Name":"Stone", "amount":100}
 		],
 		"ToolTip":"Nothing Yet"
 	}

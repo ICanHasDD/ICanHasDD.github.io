@@ -172,15 +172,7 @@ function Game() {
 	}
 	
 	if(data[objectIteration].unlocked == false){																										//Unlock new Item
-		var unlockReqMet = true
-		data[objectIteration].Unlock.forEach((prod) => {
-			let obj = data.find(o => o.Name === prod.Name)
-			let index = data.indexOf(obj)
-			if(data[index].amount < prod.amount) {
-				unlockReqMet = false
-			}
-		})
-		if(unlockReqMet == true){
+		if(unlockCheck(data[objectIteration]) == true){
 			data[objectIteration].unlock()
 		}
 	}
@@ -189,62 +181,80 @@ function Game() {
 		data[objectIteration].dombutton.style.backgroundColor = (getHex(data[objectIteration].Interval, (secondsSinceStart - data[objectIteration].disabledSince)))
 	}
 	
-	if(data[objectIteration].disabledSince == 0 || data[objectIteration].disabledSince + data[objectIteration].Interval <= secondsSinceStart) {			//Unlock buttons and update last color
-		if(data[objectIteration].dombutton.disabled) {
-			var unlockReqMet = true
-				data[objectIteration].Cost.forEach((prod) => {
-				let obj = data.find(o => o.Name === prod.Name)
-				let index = data.indexOf(obj)
-				if(data[index].amount < prod.amount) {
-					unlockReqMet = false
-				}
-			})
-			if(unlockReqMet == true){
-				data[objectIteration].dombutton.disabled = false
-				data[objectIteration].disabledSince = 0
-			}
+	if((data[objectIteration].disabledSince == 0 || data[objectIteration].disabledSince + data[objectIteration].Interval <= secondsSinceStart) && data[objectIteration].dombutton.disabled) {			//Unlock buttons and update last color
+		if(costCheck(data[objectIteration])){
+			data[objectIteration].dombutton.disabled = false
+			data[objectIteration].disabledSince = 0
 		}
 		data[objectIteration].dombutton.style.backgroundColor = '#00FF00'
 	}
 	
 	if(data[objectIteration].autoProduce) {
 		if(data[objectIteration].amount > 0) {																											//Calc if can pay cost then AutoProduction
-			var produced = false
-			var canAfford = true
-			data[objectIteration].Upkeep.forEach((prod) => {
-				let obj = data.find(o => o.Name === prod.Name)
-				let index = data.indexOf(obj)
-				if(data[index].amount < prod.amount * data[objectIteration].amount) {
-					canAfford = false
-				}
-			})
-			if(canAfford){
-				data[objectIteration].AutoProduction.forEach((prod) => {																				//Upkeep is always payed even if not everything is Produced
+			var payed = false
+			if (upkeepCheck(data[objectIteration])) {																															//Upkeep is always payed even if not everything is Produced
+				data[objectIteration].Upkeep.forEach((prod) => {
+					if(prod.lastPayed + prod.interval < secondsSinceStart) {
+						let obj = data.find(o => o.Name === prod.Name)
+						let index = data.indexOf(obj)
+						data[index].amount -= (prod.amount * data[objectIteration].amount)
+						data[index].draw()
+						payed = true
+						prod.lastPayed = secondsSinceStart
+					}
+				})
+			}
+			if(payed){
+				data[objectIteration].AutoProduction.forEach((prod) => {																				
 					if(prod.lastProduced + prod.interval < secondsSinceStart) {
 						let obj = data.find(o => o.Name === prod.Name)
 						let index = data.indexOf(obj)
 						data[index].amount += (prod.amount * data[objectIteration].amount)
 						data[index].draw()
-						produced = true
 						prod.lastProduced = secondsSinceStart
 					}
 				})
-				if (produced) {
-					data[objectIteration].Upkeep.forEach((prod) => {
-						if(prod.lastPayed + prod.interval < secondsSinceStart) {
-							let obj = data.find(o => o.Name === prod.Name)
-							let index = data.indexOf(obj)
-							data[index].amount -= (prod.amount * data[objectIteration].amount)
-							data[index].draw()
-							prod.lastPayed = secondsSinceStart
-						}
-					})
-				}
 			}
 		}
 	}
 	
 	objectIteration++
+}
+
+function unlockCheck(product){																															//Unlock new Item
+	var unlockReqMet = true
+	product.Unlock.forEach((prod) => {
+		let obj = data.find(o => o.Name === prod.Name)
+		let index = data.indexOf(obj)
+		if(data[index].amount < prod.amount) {
+			unlockReqMet = false
+		}
+	})
+	return unlockReqMet
+}
+
+function costCheck(product){
+	var unlockReqMet = true
+		product.Cost.forEach((prod) => {
+		let obj = data.find(o => o.Name === prod.Name)
+		let index = data.indexOf(obj)
+		if(data[index].amount < prod.amount) {
+			unlockReqMet = false
+		}
+	})
+	return unlockReqMet
+}
+
+function upkeepCheck(product) {
+	var canAfford = true
+	product.Upkeep.forEach((prod) => {
+		let obj = data.find(o => o.Name === prod.Name)
+		let index = data.indexOf(obj)
+		if(data[index].amount < prod.amount * product.amount) {
+			canAfford = false
+		}
+	})
+	return canAfford
 }
 
 setup()
