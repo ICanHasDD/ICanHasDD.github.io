@@ -172,7 +172,7 @@ var data=[
 			{"Name":"Stone","amount":1, "affectedBy":[], "interval":1}
 		],
 		"Upkeep":[
-			{"Name":"Coal","amount":1, "affectedBy":[], "interval":8}
+			{"Name":"Coal","amount":0.125, "affectedBy":[], "interval":1}
 		],
 		"Unlock":[
 			{"Name":"Wood", "amount":50},
