@@ -135,10 +135,10 @@ function setup(){																																		//Allow disabling Automation
 			product.dombutton.innerHTML = '<p>' + product.Name + '</p>'
 		}
 		
-		if(product.AutoProduction.length > 0){
-			product.AutoProduction.dom.hidden = false
+		if(product.autoProduce.length > 0){
+			product.autoProduce.dom.hidden = false
 		} else {
-			product.AutoProduction.dom.hidden = true
+			product.autoProduce.dom.hidden = true
 		}
 		
 		product.button.dom.className = "tooltip"
@@ -163,7 +163,7 @@ function setup(){																																		//Allow disabling Automation
 		product.dom.appendChild(product.autoProduce.dom)
 		document.body.appendChild(product.dom)
 		
-		product.AutoProduction.forEach((prod) => {
+		product.autoProduce.forEach((prod) => {
 			prod.lastProduced = 0
 		})
 		
