@@ -73,7 +73,7 @@ function setup(){																																		//Allow disabling Automation
 		product.autoProduce.dom.onclick = function() {product.autoProduce = !product.autoProduce; product.element.autoProduce.draw()}
 		product.autoProduce.innerHTML = "Produce"
 		
-		product.amount = {"dom":document.createElement('var')}
+		product.amount.dom = document.createElement('var')
 		product.amount.delta = {"dom":document.createElement('var')}
 		
 		product.pay = function() {
