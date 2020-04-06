@@ -43,7 +43,7 @@ var data=[
 		"Unlock":[
 			{"Name":"Wood","amount":5}
 		],
-		"ToolTip":"Nothing Yet"
+		"ToolTip":"You'll need 10 of me and 20 Stones to unlock Stone tools"
 	},
 	{
 		"Name":"Stone Axe",
