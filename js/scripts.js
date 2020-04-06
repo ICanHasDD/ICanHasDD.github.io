@@ -26,7 +26,7 @@ function load() {
 			data[index].unlock()
 		}
 		data[index].autoProduce = prod.autoProduce
-		data[index].autoProduce.draw()
+		data[index].domautobutton.draw()
 		data[index].draw()
 	})
 }
