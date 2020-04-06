@@ -147,10 +147,10 @@ var data=[
 			{"Name":"Furnace","amount":1, "affectedBy":[]}
 		],
 		"AutoProduction":[
-			{"Name":"Coal","amount":1, "affectedBy":[], "interval":1}
+			{"Name":"Coal","amount":0.125, "affectedBy":[], "interval":1}
 		],
 		"Upkeep":[
-			{"Name":"Wood","amount":1, "affectedBy":[], "interval":8}
+			{"Name":"Wood","amount":1, "affectedBy":[], "interval":1}
 		],
 		"Unlock":[
 			{"Name":"Stone", "amount":50}
