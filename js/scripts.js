@@ -73,7 +73,7 @@ function setup(){																																		//Allow disabling Automation
 		product.button.tip = {"dom":document.createElement('span')}
 		
 		product.autoProduce = {"dom":document.createElement('button')}
-		product.autoProduce.dom.onclick = function() {product.autoProduce = !product.autoProduce; product.autoProduce.draw()}
+		
 		product.autoProduce.innerHTML = "Produce"
 		
 		product.amount.dom = document.createElement('var')
@@ -131,6 +131,8 @@ function setup(){																																		//Allow disabling Automation
 				product.autoProduce.dom.innerHTML = "Pause"
 			}
 		}
+		
+		product.autoProduce.dom.onclick = function() {product.autoProduce = !product.autoProduce; product.autoProduce.draw()}
 		
 		product.amount.delta.draw = function() {
 			if(product.amount.value - product.amount.last.value >= 0) {
