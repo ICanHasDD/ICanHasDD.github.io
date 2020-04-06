@@ -125,7 +125,7 @@ function setup(){																																		//Allow disabling Automation
 		}
 		
 		product.autoProduce.draw = function() {
-			if(product.autoProduce) {
+			if(product.autoProduce.value) {
 				product.autoProduce.dom.innerHTML = "Produce"
 			} else {
 				product.autoProduce.dom.innerHTML = "Pause"
