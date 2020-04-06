@@ -181,7 +181,7 @@ function Game() {
 		data[objectIteration].dombutton.style.backgroundColor = (getHex(data[objectIteration].Interval, (secondsSinceStart - data[objectIteration].disabledSince)))
 	}
 	
-	if(data[objectIteration].disabledSince == 0 || data[objectIteration].disabledSince + data[objectIteration].Interval <= secondsSinceStart) {														//Unlock buttons and update last color
+	if(data[objectIteration].disabledSince == 0 || data[objectIteration].disabledSince + data[objectIteration].Interval <= secondsSinceStart) {			//Unlock buttons and update last color
 		if(data[objectIteration].dombutton.disabled) {
 			var unlockReqMet = true
 				data[objectIteration].Cost.forEach((prod) => {
@@ -200,7 +200,7 @@ function Game() {
 	}
 	
 	if(data[objectIteration].autoProduce) {
-		if(data[objectIteration].amount > 0) {																												//Calc if can pay cost then AutoProduction
+		if(data[objectIteration].amount > 0) {																											//Calc if can pay cost then AutoProduction
 			var produced = false
 			var canAfford = true
 			data[objectIteration].Upkeep.forEach((prod) => {
@@ -211,13 +211,14 @@ function Game() {
 				}
 			})
 			if(canAfford){
-				data[objectIteration].AutoProduction.forEach((prod) => {																					//Upkeep is always payed even if not everything is Produced
+				data[objectIteration].AutoProduction.forEach((prod) => {																				//Upkeep is always payed even if not everything is Produced
 					if(prod.lastProduced + prod.interval < secondsSinceStart) {
 						let obj = data.find(o => o.Name === prod.Name)
 						let index = data.indexOf(obj)
 						data[index].amount += (prod.amount * data[objectIteration].amount)
 						data[index].draw()
 						produced = true
+						prod.lastProduced = secondsSinceStart
 					}
 				})
 				if (produced) {
@@ -227,6 +228,7 @@ function Game() {
 							let index = data.indexOf(obj)
 							data[index].amount -= (prod.amount * data[objectIteration].amount)
 							data[index].draw()
+							prod.lastPayed = secondsSinceStart
 						}
 					})
 				}
