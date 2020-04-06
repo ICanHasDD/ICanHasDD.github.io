@@ -156,7 +156,7 @@ function setup(){																																		//Allow disabling Automation
 		
 		product.draw()
 		
-		product.button.dom.appendChild(product.dombuttontip)
+		product.button.dom.appendChild(product.button.tip.dom)
 		product.dom.appendChild(product.button.dom)
 		product.dom.appendChild(product.amount.dom)
 		product.dom.appendChild(product.amount.delta.dom)
