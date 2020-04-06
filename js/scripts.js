@@ -27,7 +27,7 @@ function load() {
 		}
 		data[index].autoProduce.value = prod.autoProduce
 		data[index].autoProduce.draw()
-		data[index].draw()
+		data[index].amount.draw()
 	})
 }
 
@@ -46,6 +46,9 @@ function getHex(max, dec) {
 function setup(){																																		//Allow disabling Automation
 	data.forEach((product) => {
 		product.autoProduce = {"value":true}
+		
+		product.requirements = {"dom":document.createElement('span')}
+		
 		product.unlocked = false
 		product.amount = {"value":0}
 		product.amount.last = {"value":0}
@@ -102,6 +105,21 @@ function setup(){																																		//Allow disabling Automation
 			})
 		}
 		
+		product.requirements.draw = function() {
+			if(product.Unlock.length > 0){
+				var tempString
+				if(product.unlocked) {
+					tempString = "To craft me you need: "
+				} else {
+					tempString = "To unlock me you need: "
+				}
+				product.Cost.forEach((prod) => {
+					tempString += prod.amount + " pieces of " + prod.Name
+				})
+			product.requirements.dom.innerHTML = tempString
+			}
+		}
+		
 		product.amount.draw = function() {
 			product.amount.dom.innerHTML = Math.round(product.amount.value * 1000) / 1000
 		}
@@ -129,6 +147,7 @@ function setup(){																																		//Allow disabling Automation
 			} else {
 				product.dom.style.visibility = 'visible'
 			}
+			product.requirements.draw()
 		}
 		
 		product.button.draw = function() {
@@ -156,12 +175,14 @@ function setup(){																																		//Allow disabling Automation
 		product.dom.style.visibility = 'hidden'
 		
 		product.draw()
+		product.requirements.draw()
 		
 		product.button.dom.appendChild(product.button.tip.dom)
 		product.dom.appendChild(product.button.dom)
 		product.dom.appendChild(product.amount.dom)
 		product.dom.appendChild(product.amount.delta.dom)
 		product.dom.appendChild(product.autoProduce.dom)
+		product.dom.appendChild(product.requirements.dom)
 		document.body.appendChild(product.dom)
 		
 		product.AutoProduction.forEach((prod) => {
