@@ -10,7 +10,7 @@ window.onbeforeunload = function(){
 function save(){
 	var idleSave = []
 	data.forEach((prod) => {
-		idleSave.push({"Name": prod.Name, "amount": prod.amount, "unlocked": prod.unlocked, "disabledSince": (prod.disabledSince%prod.Interval)})
+		idleSave.push({"Name": prod.Name, "amount": prod.amount, "unlocked": prod.unlocked, "disabledSince": (prod.disabledSince%prod.Interval), "autoProduce": prod.autoProduce})
 	})
 	localStorage.setItem("data", JSON.stringify(idleSave))
 }
@@ -25,6 +25,7 @@ function load() {
 		if(prod.unlocked){
 			data[index].unlock()
 		}
+		data[index].autoProduce = prod.autoProduce
 		data[index].draw()
 	})
 }
