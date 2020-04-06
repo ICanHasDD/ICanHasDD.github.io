@@ -41,7 +41,7 @@ function getHex(max, dec) {
 	return '#' + result
 }
 
-function setup(){
+function setup(){																																		//Allow disabling Automation
 	data.forEach((element) => {
 		element.lastAmount = 0
 		element.unlocked = false
@@ -51,6 +51,7 @@ function setup(){
 		
 		element.domdiv = document.createElement('div')
 		element.dombutton = document.createElement('button')
+		element.dombuttonTip = document.createElement('span')
 		element.domvar = document.createElement('var')
 		element.domdeltavar = document.createElement('var')
 		
@@ -89,10 +90,14 @@ function setup(){
 			})
 		}
 		
+		element.dombutton.className = "tooltip"
 		element.dombutton.style.backgroundColor = '#00FF00'
 		element.dombutton.disabled = true;
 		element.dombutton.onclick = element.clicked
 		element.dombutton.innerHTML = '<p>' + element.Name + '</p>'
+		
+		element.dombuttonTip.className = "tooltiptext"
+		element.dombuttonTip.innerHTML = element.ToolTip
 		
 		element.dombutton.draw = function() {
 			element.dombutton.innerHTML = '<p>' + element.Name + '</p>'

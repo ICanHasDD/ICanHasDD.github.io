@@ -10,7 +10,8 @@ var data=[
 			{"Name":"Wood","amount":0, "affectedBy":[], "interval":100}
 		],
 		"Upkeep":[],
-		"Unlock":[]
+		"Unlock":[],
+		"ToolTip":"You need 5 of me to unlock Sticks"
 	},
 	{
 		"Name":"Stone",
@@ -23,7 +24,8 @@ var data=[
 			{"Name":"Stone","amount":0, "affectedBy":[], "interval":100}
 		],
 		"Upkeep":[],
-		"Unlock":[]
+		"Unlock":[],
+		"ToolTip":"Nothing Yet"
 	},
 	{
 		"Name":"Stick",
@@ -40,7 +42,8 @@ var data=[
 		"Upkeep":[],
 		"Unlock":[
 			{"Name":"Wood","amount":5}
-		]
+		],
+		"ToolTip":"Nothing Yet"
 	},
 	{
 		"Name":"Stone Axe",
@@ -59,7 +62,8 @@ var data=[
 		"Unlock":[
 			{"Name":"Stick","amount":10},
 			{"Name":"Stone","amount":20}
-		]
+		],
+		"ToolTip":"Nothing Yet"
 	},
 	{
 		"Name":"Stone Pickaxe",
@@ -78,6 +82,7 @@ var data=[
 		"Unlock":[
 			{"Name":"Stick","amount":10},
 			{"Name":"Stone","amount":20}
-		]
+		],
+		"ToolTip":"Nothing Yet"
 	}
 ];
