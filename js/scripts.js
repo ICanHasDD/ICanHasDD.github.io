@@ -58,7 +58,7 @@ function setup(){																																		//Allow disabling Automation
 		
 		product.dom = document.createElement('div')
 		
-		product.button.dom = document.createElement('button')
+		product.button = {"dom":document.createElement('button')}
 		product.button.clicked = function() {
 			data.forEach((prod) => {
 				prod.button.dom.disabled = true
@@ -69,12 +69,12 @@ function setup(){																																		//Allow disabling Automation
 		}
 		product.button.tip.dom = document.createElement('span')
 		
-		product.autoProduce.dom = document.createElement('button')
+		product.autoProduce = {"dom":document.createElement('button')}
 		product.autoProduce.dom.onclick = function() {product.autoProduce = !product.autoProduce; product.element.autoProduce.draw()}
 		product.autoProduce.innerHTML = "Produce"
 		
-		product.amount.dom = document.createElement('var')
-		product.amount.delta.dom = document.createElement('var')
+		product.amount = {"dom":document.createElement('var')}
+		product.amount.delta = {"dom":document.createElement('var')}
 		
 		product.pay = function() {
 			product.Cost.forEach((prod) => {
