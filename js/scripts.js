@@ -267,7 +267,7 @@ function Game() {
 			}
 			if(payed){
 				data[objectIteration].AutoProduction.forEach((prod) => {																				
-					if(prod.lastProduced + prod.interval < secondsSinceStart) {
+					if(prod.lastProduced + prod.interval <= secondsSinceStart) {
 						let obj = data.find(o => o.Name === prod.Name)
 						let index = data.indexOf(obj)
 						data[index].amount.value += (prod.amount * data[objectIteration].amount.value)
