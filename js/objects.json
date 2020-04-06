@@ -6,9 +6,7 @@ var data=[
 		"Production":[
 			{"Name":"Wood","amount":1, "affectedBy":[{"Name":"Stone Axe", "Boost":1.1}]}
 		],
-		"AutoProduction":[
-			{"Name":"Wood","amount":0, "affectedBy":[], "interval":100}
-		],
+		"AutoProduction":[],
 		"Upkeep":[],
 		"Unlock":[],
 		"ToolTip":"You need 5 of me to unlock Sticks"
@@ -20,12 +18,10 @@ var data=[
 		"Production":[
 			{"Name":"Stone","amount":1, "affectedBy":[{"Name":"Stone Pickaxe", "Boost":1.1}]}
 		],
-		"AutoProduction":[
-			{"Name":"Stone","amount":0, "affectedBy":[], "interval":100}
-		],
+		"AutoProduction":[],
 		"Upkeep":[],
 		"Unlock":[],
-		"ToolTip":"Nothing Yet"
+		"ToolTip":"You'll need 40 of me, 25 Stick and 50 Wood to create your first sawmill"
 	},
 	{
 		"Name":"Stick",
@@ -36,9 +32,7 @@ var data=[
 		"Production":[
 			{"Name":"Stick","amount":1, "affectedBy":[]}
 		],
-		"AutoProduction":[
-			{"Name":"Stick","amount":0, "affectedBy":[], "interval":100}
-		],
+		"AutoProduction":[],
 		"Upkeep":[],
 		"Unlock":[
 			{"Name":"Wood","amount":5}
@@ -55,9 +49,7 @@ var data=[
 		"Production":[
 			{"Name":"Stone Axe","amount":1, "affectedBy":[]}
 		],
-		"AutoProduction":[
-			{"Name":"Stone Axe","amount":0, "affectedBy":[], "interval":100}
-		],
+		"AutoProduction":[],
 		"Upkeep":[],
 		"Unlock":[
 			{"Name":"Stick","amount":10},
@@ -82,6 +74,30 @@ var data=[
 		"Unlock":[
 			{"Name":"Stick","amount":10},
 			{"Name":"Stone","amount":20}
+		],
+		"ToolTip":"Nothing Yet"
+	},
+	{
+		"Name":"Saw Mill",
+		"Cost":[
+			{"Name":"Wood", "amount":50},
+			{"Name":"Stick", "amount":25},
+			{"Name":"Stone", "amount":40}
+		],
+		"Interval":50,
+		"Production":[
+			{"Name":"Saw Mill","amount":1, "affectedBy":[]}
+		],
+		"AutoProduction":[
+			{"Name":"Stick","amount":1, "affectedBy":[], "interval":1}
+		],
+		"Upkeep":[
+			{"Name":"Wood","amount":1, "affectedBy":[], "interval":1}
+		],
+		"Unlock":[
+			{"Name":"Wood", "amount":50},
+			{"Name":"Stick", "amount":25},
+			{"Name":"Stone", "amount":40}
 		],
 		"ToolTip":"Nothing Yet"
 	}
