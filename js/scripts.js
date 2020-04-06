@@ -132,7 +132,7 @@ function setup(){																																		//Allow disabling Automation
 			}
 		}
 		
-		product.autoProduce.dom.onclick = function() {product.autoProduce = !product.autoProduce; product.autoProduce.draw()}
+		product.autoProduce.dom.onclick = function() {product.autoProduce.value = !product.autoProduce.value; product.autoProduce.draw()}
 		
 		product.amount.delta.draw = function() {
 			if(product.amount.value - product.amount.last.value >= 0) {
@@ -239,7 +239,7 @@ function Game() {
 		data[objectIteration].button.dom.style.backgroundColor = '#00FF00'
 	}
 	
-	if(data[objectIteration].autoProduce) {
+	if(data[objectIteration].autoProduce.value) {
 		if(data[objectIteration].amount.value > 0) {																											//Calc if can pay cost then AutoProduction
 			var payed = false
 			if(data[objectIteration].Upkeep.length > 0) {
