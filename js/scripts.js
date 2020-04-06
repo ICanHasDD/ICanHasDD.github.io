@@ -246,7 +246,7 @@ function Game() {
 						if(prod.lastPayed + prod.interval < secondsSinceStart) {
 							let obj = data.find(o => o.Name === prod.Name)
 							let index = data.indexOf(obj)
-							data[index].amount.value -= (prod.amount.value * data[objectIteration].amount.value)
+							data[index].amount.value -= (prod.amount * data[objectIteration].amount.value)
 							data[index].amount.draw()
 							payed = true
 							prod.lastPayed = secondsSinceStart
@@ -261,7 +261,7 @@ function Game() {
 					if(prod.lastProduced + prod.interval < secondsSinceStart) {
 						let obj = data.find(o => o.Name === prod.Name)
 						let index = data.indexOf(obj)
-						data[index].amount.value += (prod.amount.value * data[objectIteration].amount.value)
+						data[index].amount.value += (prod.amount * data[objectIteration].amount.value)
 						data[index].amount.draw()
 						prod.lastProduced = secondsSinceStart
 					}
