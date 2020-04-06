@@ -45,7 +45,7 @@ function getHex(max, dec) {
 
 function setup(){																																		//Allow disabling Automation
 	data.forEach((product) => {
-		product.autoProduce.value = true
+		product.autoProduce = {"Value":true}
 		product.unlocked = false
 		product.amount.value = 0
 		product.amount.last.value = 0
