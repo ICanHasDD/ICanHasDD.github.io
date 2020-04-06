@@ -43,15 +43,17 @@ function getHex(max, dec) {
 
 function setup(){																																		//Allow disabling Automation
 	data.forEach((element) => {
+		element.autoProduce = true
 		element.lastAmount = 0
 		element.unlocked = false
 		element.amount = 0
 		element.draw = function() {element.domvar.innerHTML = Math.round(element.amount * 1000) / 1000}
 		element.unlock = function() {element.unlocked = true; element.domdiv.draw()}
 		
+		element.domautobutton = document.createElement('button')
 		element.domdiv = document.createElement('div')
 		element.dombutton = document.createElement('button')
-		element.dombuttonTip = document.createElement('span')
+		element.dombuttontip = document.createElement('span')
 		element.domvar = document.createElement('var')
 		element.domdeltavar = document.createElement('var')
 		
@@ -90,14 +92,16 @@ function setup(){																																		//Allow disabling Automation
 			})
 		}
 		
+		element.domautobutton.onclick = function() {element.autoProduce = !element.autoProduce; if(element.autoProduce) {element.domautobutton.innerHTML = "Produce"} else {element.domautobutton.innerHTML = "Pause"}}
+		
 		element.dombutton.className = "tooltip"
 		element.dombutton.style.backgroundColor = '#00FF00'
 		element.dombutton.disabled = true;
 		element.dombutton.onclick = element.clicked
 		element.dombutton.innerHTML = '<p>' + element.Name + '</p>'
 		
-		element.dombuttonTip.className = "tooltiptext"
-		element.dombuttonTip.innerHTML = element.ToolTip
+		element.dombuttontip.className = "tooltiptext"
+		element.dombuttontip.innerHTML = element.ToolTip
 		
 		element.dombutton.draw = function() {
 			element.dombutton.innerHTML = '<p>' + element.Name + '</p>'
@@ -116,10 +120,11 @@ function setup(){																																		//Allow disabling Automation
 		}
 		element.domdiv.draw()
 		
-		element.dombutton.appendChild(element.dombuttonTip)
+		element.dombutton.appendChild(element.dombuttontip)
 		element.domdiv.appendChild(element.dombutton)
 		element.domdiv.appendChild(element.domvar)
 		element.domdiv.appendChild(element.domdeltavar)
+		element.domdiv.appendChild(element.domautobutton)
 		document.body.appendChild(element.domdiv)
 		
 		element.AutoProduction.forEach((prod) => {
@@ -192,35 +197,37 @@ function Game() {
 		data[objectIteration].dombutton.style.backgroundColor = '#00FF00'
 	}
 	
-	if(data[objectIteration].amount > 0) {																												//Calc if can pay cost then AutoProduction
-		var produced = false
-		var canAfford = true
-		data[objectIteration].Upkeep.forEach((prod) => {
-			let obj = data.find(o => o.Name === prod.Name)
-			let index = data.indexOf(obj)
-			if(data[index].amount < prod.amount * data[objectIteration].amount) {
-				canAfford = false
-			}
-		})
-		if(canAfford){
-			data[objectIteration].AutoProduction.forEach((prod) => {																					//Upkeep is always payed even if not everything is Produced
-				if(prod.lastProduced + prod.interval < secondsSinceStart) {
-					let obj = data.find(o => o.Name === prod.Name)
-					let index = data.indexOf(obj)
-					data[index].amount += (prod.amount * data[objectIteration].amount)
-					data[index].draw()
-					produced = true
+	if(data[objectIteration].autoProduce) {
+		if(data[objectIteration].amount > 0) {																												//Calc if can pay cost then AutoProduction
+			var produced = false
+			var canAfford = true
+			data[objectIteration].Upkeep.forEach((prod) => {
+				let obj = data.find(o => o.Name === prod.Name)
+				let index = data.indexOf(obj)
+				if(data[index].amount < prod.amount * data[objectIteration].amount) {
+					canAfford = false
 				}
 			})
-			if (produced) {
-				data[objectIteration].Upkeep.forEach((prod) => {
-					if(prod.lastPayed + prod.interval < secondsSinceStart) {
+			if(canAfford){
+				data[objectIteration].AutoProduction.forEach((prod) => {																					//Upkeep is always payed even if not everything is Produced
+					if(prod.lastProduced + prod.interval < secondsSinceStart) {
 						let obj = data.find(o => o.Name === prod.Name)
 						let index = data.indexOf(obj)
-						data[index].amount -= (prod.amount * data[objectIteration].amount)
+						data[index].amount += (prod.amount * data[objectIteration].amount)
 						data[index].draw()
+						produced = true
 					}
 				})
+				if (produced) {
+					data[objectIteration].Upkeep.forEach((prod) => {
+						if(prod.lastPayed + prod.interval < secondsSinceStart) {
+							let obj = data.find(o => o.Name === prod.Name)
+							let index = data.indexOf(obj)
+							data[index].amount -= (prod.amount * data[objectIteration].amount)
+							data[index].draw()
+						}
+					})
+				}
 			}
 		}
 	}
