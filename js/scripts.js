@@ -73,7 +73,7 @@ function setup(){																																		//Allow disabling Automation
 		product.button.tip = {"dom":document.createElement('span')}
 		
 		product.autoProduce = {"dom":document.createElement('button')}
-		product.autoProduce.dom.onclick = function() {product.autoProduce = !product.autoProduce; product.element.autoProduce.draw()}
+		product.autoProduce.dom.onclick = function() {product.autoProduce = !product.autoProduce; product.autoProduce.draw()}
 		product.autoProduce.innerHTML = "Produce"
 		
 		product.amount.dom = document.createElement('var')
