@@ -163,7 +163,7 @@ function setup(){																																		//Allow disabling Automation
 		product.dom.appendChild(product.autoProduce.dom)
 		document.body.appendChild(product.dom)
 		
-		product.autoProduce.forEach((prod) => {
+		product.AutoProduction.forEach((prod) => {
 			prod.lastProduced = 0
 		})
 		
