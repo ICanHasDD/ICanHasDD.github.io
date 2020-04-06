@@ -1,0 +1,83 @@
+var data=[
+	{
+		"Name":"Wood",
+		"Cost":[],
+		"Interval":2,
+		"Production":[
+			{"Name":"Wood","amount":1, "affectedBy":[{"Name":"Stone Axe", "Boost":1.2}]}
+		],
+		"AutoProduction":[
+			{"Name":"Wood","amount":0, "affectedBy":[], "interval":100}
+		],
+		"Upkeep":[],
+		"Unlock":[]
+	},
+	{
+		"Name":"Stone",
+		"Cost":[],
+		"Interval":2,
+		"Production":[
+			{"Name":"Stone","amount":1, "affectedBy":[{"Name":"Stone Pickaxe", "Boost":1.2}]}
+		],
+		"AutoProduction":[
+			{"Name":"Stone","amount":0, "affectedBy":[], "interval":100}
+		],
+		"Upkeep":[],
+		"Unlock":[]
+	},
+	{
+		"Name":"Stick",
+		"Cost":[
+			{"Name":"Wood", "amount":5}
+		],
+		"Interval":5,
+		"Production":[
+			{"Name":"Stick","amount":1, "affectedBy":[]}
+		],
+		"AutoProduction":[
+			{"Name":"Stick","amount":0, "affectedBy":[], "interval":100}
+		],
+		"Upkeep":[],
+		"Unlock":[
+			{"Name":"Wood","amount":5}
+		]
+	},
+	{
+		"Name":"Stone Axe",
+		"Cost":[
+			{"Name":"Stick", "amount":10},
+			{"Name":"Stone", "amount":20}
+		],
+		"Interval":5,
+		"Production":[
+			{"Name":"Stone Axe","amount":1, "affectedBy":[]}
+		],
+		"AutoProduction":[
+			{"Name":"Stone Axe","amount":0, "affectedBy":[], "interval":100}
+		],
+		"Upkeep":[],
+		"Unlock":[
+			{"Name":"Stick","amount":10},
+			{"Name":"Stone","amount":20}
+		]
+	},
+	{
+		"Name":"Stone Pickaxe",
+		"Cost":[
+			{"Name":"Stick", "amount":10},
+			{"Name":"Stone", "amount":20}
+		],
+		"Interval":5,
+		"Production":[
+			{"Name":"Stone Pickaxe","amount":1, "affectedBy":[]}
+		],
+		"AutoProduction":[
+			{"Name":"Stone Pickaxe","amount":0, "affectedBy":[], "interval":100}
+		],
+		"Upkeep":[],
+		"Unlock":[
+			{"Name":"Stick","amount":10},
+			{"Name":"Stone","amount":20}
+		]
+	}
+];
