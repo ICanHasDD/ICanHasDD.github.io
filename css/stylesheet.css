@@ -1,7 +1,3 @@
-.deltaItem {
-	
-}
-
 .positive {
 	color: green;
 }
@@ -29,9 +25,30 @@
   position: absolute;
   z-index: 1;
   top: -5px;
-  left: 105%;
+  left: 205%;
 }
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
+}
+
+.progbutton {
+  width: 60px;
+}
+
+.reqtext {
+  float: right;
+}
+
+.buttongroup {
+  display: inline-grid;
+  width: 60px;
+}
+
+.buttongroup button {
+  padding: 0px;
+}
+
+.maindiv {
+  padding: 2px;
 }

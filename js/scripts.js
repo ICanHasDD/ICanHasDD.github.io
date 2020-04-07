@@ -48,6 +48,7 @@ function setup(){																																		//Allow disabling Automation
 		product.autoProduce = {"value":true}
 		
 		product.requirements = {"dom":document.createElement('span')}
+		product.requirements.dom.classList.add('reqtext')
 		
 		product.unlocked = false
 		product.amount = {"value":0}
@@ -62,6 +63,8 @@ function setup(){																																		//Allow disabling Automation
 		product.dom = document.createElement('div')
 		
 		product.button = {"dom":document.createElement('button')}
+		product.button.group = {"dom":document.createElement('div')}
+		product.button.group.dom.classList.add('buttongroup')
 		product.button.clicked = function() {
 			data.forEach((prod) => {
 				prod.button.dom.disabled = true
@@ -109,14 +112,18 @@ function setup(){																																		//Allow disabling Automation
 			if(product.Unlock.length > 0){
 				var tempString
 				if(product.unlocked) {
-					tempString = "To craft me you need: "
+					tempString = "To craft me you need: <span class='reqtext'>"
+					product.Cost.forEach((prod) => {
+						tempString += prod.amount + " pieces of " + prod.Name + "<br>"
+					})
 				} else {
-					tempString = "To unlock " + product.Name + " you need: "
+					tempString = "To unlock " + product.Name + " you need: <span class='reqtext'>"
+					product.Unlock.forEach((prod) => {
+						tempString += prod.amount + " pieces of " + prod.Name + "<br>"
+					})
 				}
-				product.Cost.forEach((prod) => {
-					tempString += prod.amount + " pieces of " + prod.Name + ", "
-				})
-			product.requirements.dom.innerHTML = tempString
+				
+			product.requirements.dom.innerHTML = tempString + "</span>"
 			}
 		}
 		
@@ -165,9 +172,10 @@ function setup(){																																		//Allow disabling Automation
 		product.button.draw = function() {
 			product.dombutton.innerHTML = '<p>' + product.Name + '</p>'
 		}
-	
 		
-		product.button.dom.className = "tooltip"
+		product.dom.classList.add('maindiv')
+		
+		product.button.dom.classList.add('tooltip', 'progbutton')
 		product.button.dom.style.backgroundColor = '#00FF00'
 		product.button.dom.disabled = true;
 		product.button.dom.onclick = product.button.clicked
@@ -187,10 +195,11 @@ function setup(){																																		//Allow disabling Automation
 		product.requirements.draw()
 		
 		product.button.dom.appendChild(product.button.tip.dom)
-		product.dom.appendChild(product.button.dom)
+		product.button.group.dom.appendChild(product.button.dom)
+		product.button.group.dom.appendChild(product.autoProduce.dom)
+		product.dom.appendChild(product.button.group.dom)
 		product.dom.appendChild(product.amount.dom)
 		product.dom.appendChild(product.amount.delta.dom)
-		product.dom.appendChild(product.autoProduce.dom)
 		product.dom.appendChild(product.requirements.dom)
 		document.body.appendChild(product.dom)
 		
